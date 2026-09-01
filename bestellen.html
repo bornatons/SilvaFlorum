@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="de-CH">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arrangement anfragen | Silva Florum – Wald der Blumen</title>
+  <meta name="description" content="Fragen Sie unverbindlich ein handgemachtes Blumenarrangement bei Silva Florum an – Abholung im Atelier oder regionale Lieferung.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ================= Header (auf allen Seiten identisch) ================= -->
+  <header class="kopf">
+    <div class="inhalt kopf-innen">
+      <a class="logo" href="index.html">Silva <span>Florum</span></a>
+      <button class="nav-knopf" aria-expanded="false" aria-controls="hauptnavigation" aria-label="Menü öffnen oder schliessen">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="navigation" id="hauptnavigation" aria-label="Hauptnavigation">
+        <ul>
+          <li><a href="index.html">Start</a></li>
+          <li><a href="angebot.html">Angebot</a></li>
+          <li><a href="bestellen.html" aria-current="page">Anfragen</a></li>
+          <li><a href="index.html#kontakt">Kontakt</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="abschnitt">
+      <div class="inhalt">
+        <h1>Arrangement anfragen</h1>
+        <hr class="zier-linie">
+        <p class="abschnitt-untertitel">
+          Erzählen Sie uns von Ihren Wünschen – Silva meldet sich innerhalb von
+          2&nbsp;Werktagen bei Ihnen. Die Anfrage ist <strong>unverbindlich</strong>:
+          Preis und Details werden erst in der gemeinsamen Absprache festgelegt.
+        </p>
+
+        <!-- Erfolgs- oder Fehlermeldung nach dem Absenden -->
+        <div id="formular-meldung" class="meldung" hidden role="status"></div>
+
+        <form id="anfrage-formular" class="formular"
+              action="https://formspree.io/f/FORMSPREE_ID" method="POST" novalidate>
+          <!-- TODO: FORMSPREE_ID hier oben UND in js/bestellen.js durch die
+               echte Formspree-ID ersetzen (siehe README.md). -->
+
+          <div class="formular-feld">
+            <label for="name">Name <span class="pflicht" aria-hidden="true">*</span></label>
+            <input type="text" id="name" name="Name" required autocomplete="name">
+          </div>
+
+          <div class="formular-feld">
+            <label for="email">E-Mail <span class="pflicht" aria-hidden="true">*</span></label>
+            <input type="email" id="email" name="E-Mail" required autocomplete="email">
+          </div>
+
+          <div class="formular-feld">
+            <label for="telefon">Telefon</label>
+            <input type="tel" id="telefon" name="Telefon" autocomplete="tel">
+            <p class="feld-hinweis">Optional – für eine schnelle Rückfrage per Telefon.</p>
+          </div>
+
+          <div class="formular-feld">
+            <label for="arrangement">Gewünschtes Arrangement <span class="pflicht" aria-hidden="true">*</span></label>
+            <select id="arrangement" name="Arrangement" required>
+              <option value="" disabled selected>Bitte wählen …</option>
+              <!-- Weitere Optionen werden per JavaScript aus data/products.js eingefügt -->
+            </select>
+          </div>
+
+          <div class="formular-feld">
+            <label for="wunschtermin">Wunschtermin <span class="pflicht" aria-hidden="true">*</span></label>
+            <input type="date" id="wunschtermin" name="Wunschtermin" required>
+            <p class="feld-hinweis">
+              Frühestens 3 Tage ab heute, damit genug Zeit fürs Anfertigen bleibt.
+            </p>
+          </div>
+
+          <div class="formular-feld">
+            <fieldset>
+              <legend>Abholung oder Lieferung <span class="pflicht" aria-hidden="true">*</span></legend>
+              <div class="radio-zeile">
+                <input type="radio" id="uebergabe-abholung" name="Übergabe" value="Abholung im Atelier" checked>
+                <label for="uebergabe-abholung">Abholung im Atelier</label>
+              </div>
+              <div class="radio-zeile">
+                <input type="radio" id="uebergabe-lieferung" name="Übergabe" value="Lieferung">
+                <label for="uebergabe-lieferung">Lieferung (regional)</label>
+              </div>
+            </fieldset>
+          </div>
+
+          <!-- Erscheint nur, wenn «Lieferung» gewählt ist -->
+          <div class="formular-feld" id="adress-bereich" hidden>
+            <label for="lieferadresse">Lieferadresse <span class="pflicht" aria-hidden="true">*</span></label>
+            <textarea id="lieferadresse" name="Lieferadresse"
+                      placeholder="Strasse und Hausnummer, PLZ Ort"></textarea>
+          </div>
+
+          <div class="formular-feld">
+            <label for="anlass">Anlass</label>
+            <input type="text" id="anlass" name="Anlass"
+                   placeholder="z.B. Geburtstag, Hochzeit, Einfach so">
+          </div>
+
+          <div class="formular-feld">
+            <label for="nachricht">Farbwünsche / Nachricht</label>
+            <textarea id="nachricht" name="Nachricht"
+                      placeholder="z.B. warme Herbsttöne, keine Lilien, Lieblingsblumen …"></textarea>
+          </div>
+
+          <div class="formular-feld">
+            <label for="budget">Ungefähres Budget (optional)</label>
+            <select id="budget" name="Budget">
+              <option value="" selected>Noch offen</option>
+              <option value="bis CHF 50">bis CHF 50</option>
+              <option value="CHF 50–100">CHF 50–100</option>
+              <option value="CHF 100–200">CHF 100–200</option>
+              <option value="über CHF 200">über CHF 200</option>
+            </select>
+          </div>
+
+          <div class="formular-feld">
+            <div class="checkbox-zeile">
+              <input type="checkbox" id="datenschutz" name="Datenschutz akzeptiert" value="Ja" required>
+              <label for="datenschutz">
+                Ich habe die <a href="datenschutz.html">Datenschutzerklärung</a> gelesen
+                und bin einverstanden, dass meine Angaben zur Bearbeitung der Anfrage
+                verwendet werden. <span class="pflicht" aria-hidden="true">*</span>
+              </label>
+            </div>
+          </div>
+
+          <button type="submit" class="button button--primaer">Anfrage senden</button>
+
+          <p class="feld-hinweis" style="margin-top: 0.9rem;">
+            Felder mit <span class="pflicht">*</span> sind Pflichtfelder.
+          </p>
+        </form>
+
+        <div class="info-kasten">
+          <strong>Gut zu wissen:</strong> Ihre Anfrage ist unverbindlich – Silva
+          meldet sich innerhalb von 2&nbsp;Werktagen. Bezahlt wird bequem per
+          <strong>TWINT</strong> oder <strong>Rechnung</strong> bei der Abholung
+          bzw. Lieferung.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= Footer (auf allen Seiten identisch) ================= -->
+  <footer class="fuss">
+    <div class="inhalt">
+      <div class="fuss-raster">
+        <div>
+          <h3>Silva Florum</h3>
+          <p>
+            Handgemachte Blumenarrangements und Dekorationen aus dem kleinen
+            Atelier – auf Bestellung gefertigt, mit Liebe zum Detail.
+          </p>
+        </div>
+        <div>
+          <h3>Kontakt</h3>
+          <ul>
+            <li><span class="todo">[TODO: Strasse und Hausnummer, PLZ Ort]</span></li>
+            <li><span class="todo">[TODO: E-Mail-Adresse]</span></li>
+            <li><span class="todo">[TODO: Telefonnummer]</span></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Seiten</h3>
+          <ul>
+            <li><a href="angebot.html">Angebot</a></li>
+            <li><a href="bestellen.html">Arrangement anfragen</a></li>
+            <li><a href="impressum.html">Impressum</a></li>
+            <li><a href="datenschutz.html">Datenschutz</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="fuss-unten">
+        © <span id="jahr">2026</span> Silva Florum · Alle Arrangements werden auf Bestellung angefertigt.
+      </p>
+    </div>
+  </footer>
+
+  <script src="data/products.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/bestellen.js"></script>
+</body>
+</html>
