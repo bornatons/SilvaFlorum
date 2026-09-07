@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="de-CH">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Silva Florum – Wald der Blumen | Blumenatelier</title>
+  <meta name="description" content="Silva Florum – handgemachte Blumenarrangements und Dekorationen auf Bestellung. Kleines Blumenatelier in der Schweiz, Abholung im Atelier oder regionale Lieferung.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ================= Header (auf allen Seiten identisch) ================= -->
+  <header class="kopf">
+    <div class="inhalt kopf-innen">
+      <a class="logo" href="index.html">Silva <span>Florum</span></a>
+      <button class="nav-knopf" aria-expanded="false" aria-controls="hauptnavigation" aria-label="Menü öffnen oder schliessen">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="navigation" id="hauptnavigation" aria-label="Hauptnavigation">
+        <ul>
+          <li><a href="index.html" aria-current="page">Start</a></li>
+          <li><a href="angebot.html">Angebot</a></li>
+          <li><a href="bestellen.html">Anfragen</a></li>
+          <li><a href="index.html#kontakt">Kontakt</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ================= Hero ================= -->
+    <section class="hero">
+      <div class="inhalt">
+        <h1>Silva Florum</h1>
+        <p class="untertitel">Wald der Blumen</p>
+        <p class="einleitung">
+          In meinem kleinen Atelier binde und stecke ich Blumenarrangements von Hand –
+          frisch für Sie angefertigt, inspiriert von Wald, Wiese und Jahreszeit.
+        </p>
+        <a class="button button--primaer" href="bestellen.html">Arrangement anfragen</a>
+      </div>
+    </section>
+
+    <!-- ================= Hervorgehobene Arrangements ================= -->
+    <section class="abschnitt">
+      <div class="inhalt">
+        <h2>Beliebte Arrangements</h2>
+        <hr class="zier-linie">
+        <p class="abschnitt-untertitel">
+          Eine kleine Auswahl aus dem Atelier. Jedes Stück entsteht erst nach Ihrer
+          Anfrage – es gibt kein Lager, dafür viel Frische und Handarbeit.
+        </p>
+        <div class="karten-raster" id="hervorgehobene-produkte">
+          <!-- Karten werden per JavaScript aus data/products.js eingesetzt -->
+        </div>
+        <p class="beispiel-hinweis">
+          Alle gezeigten Produkte und Preise sind Beispiele – Ihr Arrangement gestalten wir gemeinsam.
+        </p>
+        <p><a class="button button--sekundaer" href="angebot.html">Ganzes Angebot ansehen</a></p>
+      </div>
+    </section>
+
+    <!-- ================= Ablauf in 3 Schritten ================= -->
+    <section class="abschnitt abschnitt--hell">
+      <div class="inhalt">
+        <h2>So einfach geht es</h2>
+        <hr class="zier-linie">
+        <div class="schritte">
+          <div class="schritt">
+            <h3>Anfrage</h3>
+            <p>
+              Sie schicken über das Formular eine unverbindliche Anfrage mit Ihren
+              Wünschen – Anlass, Farben, Termin und Budget.
+            </p>
+          </div>
+          <div class="schritt">
+            <h3>Absprache</h3>
+            <p>
+              Silva meldet sich innerhalb von 2 Werktagen bei Ihnen. Gemeinsam
+              besprechen Sie die Details, den Preis und den Termin.
+            </p>
+          </div>
+          <div class="schritt">
+            <h3>Abholung oder Lieferung</h3>
+            <p>
+              Ihr frisch angefertigtes Arrangement holen Sie im Atelier ab – oder
+              Silva liefert es Ihnen in der Region nach Hause.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Über Silva ================= -->
+    <section class="abschnitt">
+      <div class="inhalt ueber">
+        <div class="ueber-bild">
+          <img src="images/atelier.svg" alt="Beispielbild: Das Atelier von Silva Florum">
+        </div>
+        <div>
+          <h2>Über Silva</h2>
+          <hr class="zier-linie">
+          <!-- TODO: Die drei Absätze unten durch Silvas eigene Geschichte ersetzen.
+               Jeder Absatz steht zwischen <p> und </p> – diese Klammern stehen lassen. -->
+          <p>
+            Hinter Silva Florum steht Silva – Floristin aus Leidenschaft. Was als
+            Freude am Sammeln von Zweigen, Gräsern und Blüten begann, ist heute ein
+            kleines Atelier, in dem jedes Arrangement von Hand entsteht.
+          </p>
+          <p>
+            Silva arbeitet ohne Lagerbestand: Jedes Stück wird erst nach Ihrer
+            Anfrage angefertigt, mit saisonalen Blumen und Naturmaterialien aus der
+            Region. So bleibt alles frisch, persönlich und ohne unnötigen Abfall.
+          </p>
+          <p>
+            Ob Strauss zum Geburtstag, Kranz für die Haustür oder Dekoration für
+            Ihr Fest – Silva freut sich auf Ihre Ideen.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Kontakt ================= -->
+    <section class="abschnitt abschnitt--hell" id="kontakt">
+      <div class="inhalt">
+        <h2>Kontakt</h2>
+        <hr class="zier-linie">
+        <p class="abschnitt-untertitel">
+          Am einfachsten erreichen Sie Silva über das Anfrageformular. Sie können
+          sich aber auch direkt melden – ein Besuch im Atelier ist nach Vereinbarung
+          jederzeit möglich.
+        </p>
+        <ul class="kontakt-liste">
+          <!-- Angaben kommen automatisch aus data/einstellungen.js -->
+          <li><strong>Atelier:</strong> <span data-feld="adresse"></span></li>
+          <li><strong>E-Mail:</strong> <a data-feld="email"></a></li>
+          <li><strong>Telefon:</strong> <a data-feld="telefon"></a></li>
+        </ul>
+        <a class="button button--primaer" href="bestellen.html">Arrangement anfragen</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= Footer (auf allen Seiten identisch) ================= -->
+  <footer class="fuss">
+    <div class="inhalt">
+      <div class="fuss-raster">
+        <div>
+          <h3>Silva Florum</h3>
+          <p>
+            Handgemachte Blumenarrangements und Dekorationen aus dem kleinen
+            Atelier – auf Bestellung gefertigt, mit Liebe zum Detail.
+          </p>
+        </div>
+        <div>
+          <h3>Kontakt</h3>
+          <ul>
+            <!-- Angaben kommen automatisch aus data/einstellungen.js -->
+            <li><span data-feld="adresse"></span></li>
+            <li><a data-feld="email"></a></li>
+            <li><a data-feld="telefon"></a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Seiten</h3>
+          <ul>
+            <li><a href="angebot.html">Angebot</a></li>
+            <li><a href="bestellen.html">Arrangement anfragen</a></li>
+            <li><a href="impressum.html">Impressum</a></li>
+            <li><a href="datenschutz.html">Datenschutz</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="fuss-unten">
+        © <span id="jahr">2026</span> Silva Florum · Alle Arrangements werden auf Bestellung angefertigt.
+      </p>
+    </div>
+  </footer>
+
+  <script src="data/products.js"></script>
+  <script src="data/einstellungen.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    // Auf der Startseite nur die hervorgehobenen Produkte zeigen
+    document.addEventListener("DOMContentLoaded", function () {
+      zeigeProdukte("hervorgehobene-produkte", true);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="de-CH">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Angebot | Silva Florum – Wald der Blumen</title>
+  <meta name="description" content="Das Angebot von Silva Florum: Sträusse, Gestecke, Kränze, Trockenblumen und Hochzeitsdeko – alles handgemacht und auf Bestellung angefertigt.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ================= Header (auf allen Seiten identisch) ================= -->
+  <header class="kopf">
+    <div class="inhalt kopf-innen">
+      <a class="logo" href="index.html">Silva <span>Florum</span></a>
+      <button class="nav-knopf" aria-expanded="false" aria-controls="hauptnavigation" aria-label="Menü öffnen oder schliessen">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="navigation" id="hauptnavigation" aria-label="Hauptnavigation">
+        <ul>
+          <li><a href="index.html">Start</a></li>
+          <li><a href="angebot.html" aria-current="page">Angebot</a></li>
+          <li><a href="bestellen.html">Anfragen</a></li>
+          <li><a href="index.html#kontakt">Kontakt</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="abschnitt">
+      <div class="inhalt">
+        <h1>Unser Angebot</h1>
+        <hr class="zier-linie">
+        <p class="abschnitt-untertitel">
+          Jedes Arrangement wird nach Ihrer Anfrage von Hand angefertigt – mit
+          saisonalen Blumen und Naturmaterialien. Die gezeigten Produkte und Preise
+          sind Beispiele und dienen als Ausgangspunkt für Ihre Wünsche.
+        </p>
+
+        <!-- Filterknöpfe werden per JavaScript aus den Kategorien erzeugt -->
+        <div class="filter-leiste" id="kategorie-filter" role="group" aria-label="Nach Kategorie filtern"></div>
+
+        <div class="karten-raster" id="alle-produkte">
+          <!-- Karten werden per JavaScript aus data/products.js eingesetzt -->
+        </div>
+
+        <p class="beispiel-hinweis" style="margin-top: 1.5rem;">
+          Alle Preise sind Beispiel-Richtpreise in CHF. Der definitive Preis wird
+          bei der Absprache gemeinsam festgelegt. Bezahlung per TWINT oder Rechnung
+          bei Abholung bzw. Lieferung.
+        </p>
+
+        <div class="info-kasten">
+          Ihr Wunsch ist nicht dabei? Kein Problem – wählen Sie im Formular einfach
+          <strong>«Sonderanfertigung»</strong> und beschreiben Sie Ihre Idee.
+        </div>
+
+        <a class="button button--primaer" href="bestellen.html">Arrangement anfragen</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= Footer (auf allen Seiten identisch) ================= -->
+  <footer class="fuss">
+    <div class="inhalt">
+      <div class="fuss-raster">
+        <div>
+          <h3>Silva Florum</h3>
+          <p>
+            Handgemachte Blumenarrangements und Dekorationen aus dem kleinen
+            Atelier – auf Bestellung gefertigt, mit Liebe zum Detail.
+          </p>
+        </div>
+        <div>
+          <h3>Kontakt</h3>
+          <ul>
+            <!-- Angaben kommen automatisch aus data/einstellungen.js -->
+            <li><span data-feld="adresse"></span></li>
+            <li><a data-feld="email"></a></li>
+            <li><a data-feld="telefon"></a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Seiten</h3>
+          <ul>
+            <li><a href="angebot.html">Angebot</a></li>
+            <li><a href="bestellen.html">Arrangement anfragen</a></li>
+            <li><a href="impressum.html">Impressum</a></li>
+            <li><a href="datenschutz.html">Datenschutz</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="fuss-unten">
+        © <span id="jahr">2026</span> Silva Florum · Alle Arrangements werden auf Bestellung angefertigt.
+      </p>
+    </div>
+  </footer>
+
+  <script src="data/products.js"></script>
+  <script src="data/einstellungen.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    // Auf der Angebotsseite alle Produkte samt Kategorie-Filter zeigen
+    document.addEventListener("DOMContentLoaded", function () {
+      zeigeProdukte("alle-produkte", false);
+      baueKategorieFilter("kategorie-filter", "alle-produkte");
+    });
+  </script>
+</body>
+</html>

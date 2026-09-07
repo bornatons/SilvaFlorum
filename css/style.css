@@ -1,0 +1,716 @@
+/* ============================================================
+   Silva Florum – zentrales Stylesheet
+   Farbpalette und Grundwerte als CSS-Variablen (siehe :root).
+   Mobile-first: Grundstile gelten fürs Handy, @media-Blöcke
+   erweitern das Layout für grössere Bildschirme.
+   ============================================================ */
+
+:root {
+  /* Farbpalette */
+  --waldgruen: #3d5a45;
+  --waldgruen-dunkel: #2c4233;
+  --waldgruen-hell: #eaf0e8;
+  --creme: #faf6ee;
+  --creme-dunkel: #f1ead9;
+  --rose: #e9d5d0;
+  --rose-dunkel: #c9a49c;
+  --anthrazit: #2e2e2a;
+  --grau: #6d6d66;
+  --weiss: #ffffff;
+
+  /* Schriften (nur Systemschriften, keine externen Dienste) */
+  --schrift-titel: Georgia, "Times New Roman", serif;
+  --schrift-text: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* Abstände und Radien */
+  --radius: 10px;
+  --schatten: 0 2px 12px rgba(46, 46, 42, 0.08);
+  --inhalt-breite: 1060px;
+}
+
+/* ---------- Grundlagen ---------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--schrift-text);
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--anthrazit);
+  background-color: var(--creme);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--schrift-titel);
+  font-weight: normal;
+  color: var(--waldgruen-dunkel);
+  line-height: 1.25;
+}
+
+h1 {
+  font-size: 2.1rem;
+}
+
+h2 {
+  font-size: 1.6rem;
+  margin-top: 0;
+}
+
+h3 {
+  font-size: 1.15rem;
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+a {
+  color: var(--waldgruen);
+}
+
+a:hover,
+a:focus {
+  color: var(--waldgruen-dunkel);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Elemente mit hidden-Attribut immer ausblenden, auch wenn eine
+   Klasse (z.B. .karte mit display:flex) etwas anderes sagt. */
+[hidden] {
+  display: none !important;
+}
+
+.inhalt {
+  max-width: var(--inhalt-breite);
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+.abschnitt {
+  padding: 3.5rem 0;
+}
+
+.abschnitt--hell {
+  background-color: var(--weiss);
+}
+
+.abschnitt-untertitel {
+  color: var(--grau);
+  max-width: 34rem;
+  margin-bottom: 2rem;
+}
+
+/* Kleine botanische Trennlinie unter Abschnittstiteln */
+.zier-linie {
+  width: 3.5rem;
+  height: 3px;
+  border: none;
+  margin: 0.75rem 0 1.25rem;
+  background: linear-gradient(to right, var(--rose-dunkel), var(--waldgruen));
+  border-radius: 3px;
+}
+
+/* ---------- Buttons ---------- */
+
+.button {
+  display: inline-block;
+  padding: 0.75rem 1.6rem;
+  border: none;
+  border-radius: 999px;
+  font-family: var(--schrift-text);
+  font-size: 1rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.button--primaer {
+  background-color: var(--waldgruen);
+  color: var(--creme);
+}
+
+.button--primaer:hover,
+.button--primaer:focus {
+  background-color: var(--waldgruen-dunkel);
+  color: var(--weiss);
+}
+
+.button--sekundaer {
+  background-color: transparent;
+  color: var(--waldgruen);
+  border: 1.5px solid var(--waldgruen);
+}
+
+.button--sekundaer:hover,
+.button--sekundaer:focus {
+  background-color: var(--waldgruen-hell);
+  color: var(--waldgruen-dunkel);
+}
+
+/* ---------- Header und Navigation ---------- */
+
+.kopf {
+  background-color: var(--creme);
+  border-bottom: 1px solid var(--creme-dunkel);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.kopf-innen {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 0.9rem;
+  padding-bottom: 0.9rem;
+}
+
+.logo {
+  font-family: var(--schrift-titel);
+  font-size: 1.35rem;
+  color: var(--waldgruen-dunkel);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+}
+
+.logo span {
+  color: var(--rose-dunkel);
+}
+
+/* Burger-Knopf: nur am Handy sichtbar */
+.nav-knopf {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.nav-knopf span {
+  width: 24px;
+  height: 2px;
+  background-color: var(--anthrazit);
+  border-radius: 2px;
+}
+
+.navigation {
+  display: none;
+  width: 100%;
+}
+
+.navigation.offen {
+  display: block;
+}
+
+.navigation ul {
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem 0 1rem;
+}
+
+.navigation a {
+  display: block;
+  padding: 0.6rem 0;
+  text-decoration: none;
+  color: var(--anthrazit);
+  border-bottom: 1px solid var(--creme-dunkel);
+}
+
+.navigation a:hover,
+.navigation a:focus,
+.navigation a[aria-current="page"] {
+  color: var(--waldgruen-dunkel);
+}
+
+.navigation a[aria-current="page"] {
+  font-weight: 600;
+}
+
+@media (min-width: 720px) {
+  .kopf-innen {
+    flex-wrap: nowrap;
+  }
+
+  .nav-knopf {
+    display: none;
+  }
+
+  .navigation {
+    display: block;
+    width: auto;
+  }
+
+  .navigation ul {
+    display: flex;
+    gap: 1.6rem;
+    padding: 0;
+  }
+
+  .navigation a {
+    border-bottom: none;
+    padding: 0.25rem 0;
+  }
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+  background:
+    radial-gradient(ellipse at 85% 15%, rgba(233, 213, 208, 0.55), transparent 55%),
+    radial-gradient(ellipse at 10% 90%, rgba(61, 90, 69, 0.12), transparent 50%),
+    var(--creme);
+  padding: 4.5rem 0 4rem;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 2.4rem;
+  margin: 0 0 0.4rem;
+}
+
+.hero .untertitel {
+  font-family: var(--schrift-titel);
+  font-style: italic;
+  color: var(--rose-dunkel);
+  font-size: 1.15rem;
+  margin-bottom: 1.2rem;
+}
+
+.hero .einleitung {
+  max-width: 32rem;
+  margin: 0 auto 2rem;
+  font-size: 1.08rem;
+}
+
+@media (min-width: 720px) {
+  .hero h1 {
+    font-size: 3.1rem;
+  }
+}
+
+/* ---------- Produktkarten ---------- */
+
+.karten-raster {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 560px) {
+  .karten-raster {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .karten-raster {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.karte {
+  background-color: var(--weiss);
+  border-radius: var(--radius);
+  box-shadow: var(--schatten);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.karte img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.karte-inhalt {
+  padding: 1.1rem 1.2rem 1.3rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.karte-kategorie {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--rose-dunkel);
+  margin-bottom: 0.3rem;
+}
+
+.karte h3 {
+  margin: 0 0 0.4rem;
+}
+
+.karte-beschreibung {
+  font-size: 0.94rem;
+  color: var(--grau);
+  flex-grow: 1;
+}
+
+.karte-fuss {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.karte-preis {
+  font-family: var(--schrift-titel);
+  color: var(--waldgruen-dunkel);
+  font-size: 1.05rem;
+}
+
+.karte .button {
+  padding: 0.45rem 1.1rem;
+  font-size: 0.9rem;
+}
+
+.beispiel-hinweis {
+  font-size: 0.85rem;
+  color: var(--grau);
+  font-style: italic;
+}
+
+/* Kategorie-Filter auf der Angebotsseite */
+.filter-leiste {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.filter-knopf {
+  padding: 0.4rem 1rem;
+  border: 1.5px solid var(--waldgruen-hell);
+  border-radius: 999px;
+  background-color: var(--weiss);
+  color: var(--anthrazit);
+  font-family: var(--schrift-text);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.filter-knopf:hover {
+  border-color: var(--waldgruen);
+}
+
+.filter-knopf.aktiv {
+  background-color: var(--waldgruen);
+  border-color: var(--waldgruen);
+  color: var(--creme);
+}
+
+/* ---------- Ablauf in 3 Schritten ---------- */
+
+.schritte {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr;
+  counter-reset: schritt;
+}
+
+@media (min-width: 720px) {
+  .schritte {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.schritt {
+  background-color: var(--weiss);
+  border-radius: var(--radius);
+  box-shadow: var(--schatten);
+  padding: 1.5rem 1.4rem;
+}
+
+.schritt::before {
+  counter-increment: schritt;
+  content: counter(schritt);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.3rem;
+  height: 2.3rem;
+  border-radius: 50%;
+  background-color: var(--rose);
+  color: var(--waldgruen-dunkel);
+  font-family: var(--schrift-titel);
+  font-size: 1.15rem;
+  margin-bottom: 0.7rem;
+}
+
+.schritt h3 {
+  margin: 0 0 0.4rem;
+}
+
+.schritt p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--grau);
+}
+
+/* ---------- Über Silva ---------- */
+
+.ueber {
+  display: grid;
+  gap: 2rem;
+  align-items: center;
+}
+
+@media (min-width: 720px) {
+  .ueber {
+    grid-template-columns: 2fr 3fr;
+  }
+}
+
+.ueber-bild {
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--schatten);
+}
+
+/* ---------- Kontakt ---------- */
+
+.kontakt-liste {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+}
+
+.kontakt-liste li {
+  margin-bottom: 0.5rem;
+}
+
+/* ---------- Formular ---------- */
+
+.formular {
+  background-color: var(--weiss);
+  border-radius: var(--radius);
+  box-shadow: var(--schatten);
+  padding: 1.75rem 1.4rem;
+  max-width: 42rem;
+}
+
+@media (min-width: 720px) {
+  .formular {
+    padding: 2.5rem;
+  }
+}
+
+.formular-feld {
+  margin-bottom: 1.3rem;
+}
+
+.formular-feld label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.pflicht {
+  color: var(--rose-dunkel);
+}
+
+.feld-hinweis {
+  font-size: 0.85rem;
+  color: var(--grau);
+  margin: 0.25rem 0 0;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="date"],
+select,
+textarea {
+  width: 100%;
+  padding: 0.65rem 0.8rem;
+  border: 1.5px solid var(--creme-dunkel);
+  border-radius: 6px;
+  font-family: var(--schrift-text);
+  font-size: 1rem;
+  color: var(--anthrazit);
+  background-color: var(--weiss);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid var(--waldgruen);
+  outline-offset: 1px;
+  border-color: var(--waldgruen);
+}
+
+textarea {
+  min-height: 7rem;
+  resize: vertical;
+}
+
+fieldset {
+  border: 1.5px solid var(--creme-dunkel);
+  border-radius: 6px;
+  padding: 0.9rem 1rem;
+  margin: 0;
+}
+
+legend {
+  font-weight: 600;
+  padding: 0 0.4rem;
+}
+
+.radio-zeile,
+.checkbox-zeile {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  margin-bottom: 0.4rem;
+}
+
+.radio-zeile label,
+.checkbox-zeile label {
+  font-weight: normal;
+  margin: 0;
+}
+
+.radio-zeile input,
+.checkbox-zeile input {
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-top: 0.25rem;
+  flex-shrink: 0;
+  accent-color: var(--waldgruen);
+}
+
+/* Meldungen (Erfolg / Fehler) */
+.meldung {
+  padding: 1rem 1.2rem;
+  border-radius: 6px;
+  margin-bottom: 1.3rem;
+}
+
+.meldung--erfolg {
+  background-color: var(--waldgruen-hell);
+  border: 1.5px solid var(--waldgruen);
+  color: var(--waldgruen-dunkel);
+}
+
+.meldung--fehler {
+  background-color: #f9e8e6;
+  border: 1.5px solid var(--rose-dunkel);
+  color: #7c4038;
+}
+
+.info-kasten {
+  background-color: var(--waldgruen-hell);
+  border-left: 4px solid var(--waldgruen);
+  border-radius: 0 6px 6px 0;
+  padding: 0.9rem 1.1rem;
+  font-size: 0.93rem;
+  margin: 1.5rem 0;
+}
+
+/* ---------- Rechtstexte (Impressum, Datenschutz) ---------- */
+
+.textseite {
+  max-width: 44rem;
+}
+
+.textseite h2 {
+  margin-top: 2.2rem;
+  font-size: 1.3rem;
+}
+
+.todo,
+.fuss a.todo {
+  background-color: #fdf3d7;
+  color: #6b5416;
+  border-radius: 4px;
+  padding: 0.05rem 0.35rem;
+  font-family: var(--schrift-text);
+  font-size: 0.92em;
+}
+
+/* ---------- Footer ---------- */
+
+.fuss {
+  background-color: var(--waldgruen-dunkel);
+  color: var(--creme);
+  padding: 2.5rem 0 2rem;
+  margin-top: 3rem;
+}
+
+.fuss a {
+  color: var(--creme);
+}
+
+.fuss a:hover,
+.fuss a:focus {
+  color: var(--rose);
+}
+
+.fuss-raster {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 720px) {
+  .fuss-raster {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.fuss h3 {
+  color: var(--rose);
+  font-size: 1rem;
+  margin: 0 0 0.6rem;
+}
+
+.fuss ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.fuss li {
+  margin-bottom: 0.35rem;
+}
+
+.fuss-unten {
+  margin-top: 2rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(250, 246, 238, 0.25);
+  font-size: 0.85rem;
+  color: rgba(250, 246, 238, 0.75);
+}
+
+/* ---------- Kleinkram ---------- */
+
+.nur-vorlesen {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
