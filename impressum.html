@@ -35,19 +35,21 @@
 
         <h2>Verantwortlich für diese Website</h2>
         <p>
+          <!-- Angaben kommen automatisch aus data/einstellungen.js -->
           Silva Florum – Blumenatelier<br>
-          <span class="todo">[TODO: Vorname und Nachname]</span><br>
-          <span class="todo">[TODO: Strasse und Hausnummer]</span><br>
-          <span class="todo">[TODO: PLZ und Ort]</span><br>
+          <span data-feld="name"></span><br>
+          <span data-feld="strasse"></span><br>
+          <span data-feld="plz_ort"></span><br>
           Schweiz
         </p>
         <p>
-          E-Mail: <span class="todo">[TODO: E-Mail-Adresse]</span><br>
-          Telefon: <span class="todo">[TODO: Telefonnummer]</span>
+          E-Mail: <a data-feld="email"></a><br>
+          Telefon: <a data-feld="telefon"></a>
         </p>
         <p>
           Rechtsform: Einzelunternehmen<br>
-          <span class="todo">[TODO: Falls im Handelsregister eingetragen: UID-Nummer (CHE-XXX.XXX.XXX) ergänzen, sonst diese Zeile löschen.]</span>
+          <!-- Die UID-Zeile erscheint nur, wenn in den Einstellungen eine UID steht -->
+          <span data-nur-wenn="uid">UID: <span data-feld="uid"></span></span>
         </p>
 
         <h2>Haftungsausschluss</h2>
@@ -95,9 +97,10 @@
         <div>
           <h3>Kontakt</h3>
           <ul>
-            <li><span class="todo">[TODO: Strasse und Hausnummer, PLZ Ort]</span></li>
-            <li><span class="todo">[TODO: E-Mail-Adresse]</span></li>
-            <li><span class="todo">[TODO: Telefonnummer]</span></li>
+            <!-- Angaben kommen automatisch aus data/einstellungen.js -->
+            <li><span data-feld="adresse"></span></li>
+            <li><a data-feld="email"></a></li>
+            <li><a data-feld="telefon"></a></li>
           </ul>
         </div>
         <div>
@@ -116,6 +119,7 @@
     </div>
   </footer>
 
+  <script src="data/einstellungen.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

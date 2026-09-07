@@ -101,6 +101,8 @@
         <div>
           <h2>Über Silva</h2>
           <hr class="zier-linie">
+          <!-- TODO: Die drei Absätze unten durch Silvas eigene Geschichte ersetzen.
+               Jeder Absatz steht zwischen <p> und </p> – diese Klammern stehen lassen. -->
           <p>
             Hinter Silva Florum steht Silva – Floristin aus Leidenschaft. Was als
             Freude am Sammeln von Zweigen, Gräsern und Blüten begann, ist heute ein
@@ -112,7 +114,6 @@
             Region. So bleibt alles frisch, persönlich und ohne unnötigen Abfall.
           </p>
           <p>
-            <!-- TODO: Diesen Text gerne durch Silvas eigene Geschichte ersetzen. -->
             Ob Strauss zum Geburtstag, Kranz für die Haustür oder Dekoration für
             Ihr Fest – Silva freut sich auf Ihre Ideen.
           </p>
@@ -131,9 +132,10 @@
           jederzeit möglich.
         </p>
         <ul class="kontakt-liste">
-          <li><strong>Atelier:</strong> <span class="todo">[TODO: Strasse und Hausnummer, PLZ Ort]</span></li>
-          <li><strong>E-Mail:</strong> <span class="todo">[TODO: E-Mail-Adresse]</span></li>
-          <li><strong>Telefon:</strong> <span class="todo">[TODO: Telefonnummer]</span></li>
+          <!-- Angaben kommen automatisch aus data/einstellungen.js -->
+          <li><strong>Atelier:</strong> <span data-feld="adresse"></span></li>
+          <li><strong>E-Mail:</strong> <a data-feld="email"></a></li>
+          <li><strong>Telefon:</strong> <a data-feld="telefon"></a></li>
         </ul>
         <a class="button button--primaer" href="bestellen.html">Arrangement anfragen</a>
       </div>
@@ -155,9 +157,10 @@
         <div>
           <h3>Kontakt</h3>
           <ul>
-            <li><span class="todo">[TODO: Strasse und Hausnummer, PLZ Ort]</span></li>
-            <li><span class="todo">[TODO: E-Mail-Adresse]</span></li>
-            <li><span class="todo">[TODO: Telefonnummer]</span></li>
+            <!-- Angaben kommen automatisch aus data/einstellungen.js -->
+            <li><span data-feld="adresse"></span></li>
+            <li><a data-feld="email"></a></li>
+            <li><a data-feld="telefon"></a></li>
           </ul>
         </div>
         <div>
@@ -177,6 +180,7 @@
   </footer>
 
   <script src="data/products.js"></script>
+  <script src="data/einstellungen.js"></script>
   <script src="js/main.js"></script>
   <script>
     // Auf der Startseite nur die hervorgehobenen Produkte zeigen

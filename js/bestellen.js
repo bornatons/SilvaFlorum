@@ -8,15 +8,33 @@
 
 "use strict";
 
-/* TODO: Formspree-ID eintragen (siehe README.md, Abschnitt «Formular
-   aktivieren»). Solange der Platzhalter unverändert ist, wird das
-   Formular nicht abgeschickt, sondern ein Hinweis angezeigt. */
-var FORMSPREE_ID = "FORMSPREE_ID";
+/* Die Formspree-ID wird in data/einstellungen.js eingetragen (siehe
+   README.md, Abschnitt «Formular aktivieren»). Solange sie fehlt, wird
+   das Formular nicht abgeschickt, sondern ein Hinweis angezeigt. */
+function holeFormspreeId() {
+  if (typeof EINSTELLUNGEN === "undefined" || !EINSTELLUNGEN) {
+    return "";
+  }
+  var id = String(EINSTELLUNGEN.formspree_id || "").trim();
+  // Falls jemand die ganze Adresse statt nur der ID eingetragen hat
+  // (z.B. "https://formspree.io/f/abcdwxyz" oder "formspree.io/f/abcdwxyz/"),
+  // nur den Teil nach "/f/" verwenden.
+  var treffer = id.match(/\/f\/([^\/?#\s]+)/);
+  if (treffer) {
+    id = treffer[1];
+  }
+  return id === "FORMSPREE_ID" ? "" : id;
+}
 
 document.addEventListener("DOMContentLoaded", function () {
   var formular = document.getElementById("anfrage-formular");
   if (!formular) {
     return;
+  }
+
+  var formspreeId = holeFormspreeId();
+  if (formspreeId) {
+    formular.action = "https://formspree.io/f/" + formspreeId;
   }
 
   /* ---------- Dropdown mit Arrangements füllen ---------- */
@@ -128,10 +146,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // 3. Ist die Formspree-ID noch nicht eingetragen, freundlich darauf hinweisen
-    if (FORMSPREE_ID === "FORMSPREE_ID") {
+    if (!formspreeId) {
       zeigeMeldung(
-        "Das Formular ist noch nicht aktiviert: Die Formspree-ID wurde noch nicht " +
-          "eingetragen (siehe README.md). Bitte kontaktieren Sie uns in der " +
+        "Das Formular ist noch nicht aktiviert: In data/einstellungen.js fehlt die " +
+          "Formspree-ID (siehe README.md). Bitte kontaktieren Sie uns in der " +
           "Zwischenzeit direkt per E-Mail oder Telefon – die Angaben finden Sie im Footer.",
         "fehler"
       );
@@ -145,7 +163,7 @@ document.addEventListener("DOMContentLoaded", function () {
       absendeKnopf.textContent = "Wird gesendet …";
     }
 
-    fetch("https://formspree.io/f/" + FORMSPREE_ID, {
+    fetch("https://formspree.io/f/" + formspreeId, {
       method: "POST",
       body: new FormData(formular),
       headers: { Accept: "application/json" }
@@ -161,6 +179,19 @@ document.addEventListener("DOMContentLoaded", function () {
             "erfolg"
           );
         } else {
+          // Genaue Ursache (z.B. Limit erreicht, Formular deaktiviert) in der
+          // Browser-Konsole ausgeben – hilft beim Einrichten und Testen.
+          antwort
+            .json()
+            .then(function (daten) {
+              var details = daten && daten.errors
+                ? daten.errors.map(function (e) { return e.message; }).join(", ")
+                : (daten && daten.error) || "";
+              console.error("Formspree-Fehler " + antwort.status + ": " + details);
+            })
+            .catch(function () {
+              console.error("Formspree-Fehler " + antwort.status);
+            });
           zeigeMeldung(
             "Leider konnte die Anfrage nicht gesendet werden. Bitte versuchen Sie es " +
               "später noch einmal oder kontaktieren Sie uns direkt per E-Mail oder Telefon.",

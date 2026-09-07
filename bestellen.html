@@ -41,10 +41,10 @@
         <!-- Erfolgs- oder Fehlermeldung nach dem Absenden -->
         <div id="formular-meldung" class="meldung" hidden role="status"></div>
 
+        <!-- Die Adresse im action-Attribut wird beim Laden automatisch aus
+             der Formspree-ID in data/einstellungen.js gesetzt (js/bestellen.js). -->
         <form id="anfrage-formular" class="formular"
               action="https://formspree.io/f/FORMSPREE_ID" method="POST" novalidate>
-          <!-- TODO: FORMSPREE_ID hier oben UND in js/bestellen.js durch die
-               echte Formspree-ID ersetzen (siehe README.md). -->
 
           <div class="formular-feld">
             <label for="name">Name <span class="pflicht" aria-hidden="true">*</span></label>
@@ -53,7 +53,9 @@
 
           <div class="formular-feld">
             <label for="email">E-Mail <span class="pflicht" aria-hidden="true">*</span></label>
-            <input type="email" id="email" name="E-Mail" required autocomplete="email">
+            <!-- Der Feldname muss «email» heissen: So setzt Formspree die Kundenadresse
+                 als Antwortadresse, und Silva kann direkt auf «Antworten» klicken. -->
+            <input type="email" id="email" name="email" required autocomplete="email">
           </div>
 
           <div class="formular-feld">
@@ -164,9 +166,10 @@
         <div>
           <h3>Kontakt</h3>
           <ul>
-            <li><span class="todo">[TODO: Strasse und Hausnummer, PLZ Ort]</span></li>
-            <li><span class="todo">[TODO: E-Mail-Adresse]</span></li>
-            <li><span class="todo">[TODO: Telefonnummer]</span></li>
+            <!-- Angaben kommen automatisch aus data/einstellungen.js -->
+            <li><span data-feld="adresse"></span></li>
+            <li><a data-feld="email"></a></li>
+            <li><a data-feld="telefon"></a></li>
           </ul>
         </div>
         <div>
@@ -186,6 +189,7 @@
   </footer>
 
   <script src="data/products.js"></script>
+  <script src="data/einstellungen.js"></script>
   <script src="js/main.js"></script>
   <script src="js/bestellen.js"></script>
 </body>

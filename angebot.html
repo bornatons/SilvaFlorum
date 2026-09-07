@@ -75,9 +75,10 @@
         <div>
           <h3>Kontakt</h3>
           <ul>
-            <li><span class="todo">[TODO: Strasse und Hausnummer, PLZ Ort]</span></li>
-            <li><span class="todo">[TODO: E-Mail-Adresse]</span></li>
-            <li><span class="todo">[TODO: Telefonnummer]</span></li>
+            <!-- Angaben kommen automatisch aus data/einstellungen.js -->
+            <li><span data-feld="adresse"></span></li>
+            <li><a data-feld="email"></a></li>
+            <li><a data-feld="telefon"></a></li>
           </ul>
         </div>
         <div>
@@ -97,6 +98,7 @@
   </footer>
 
   <script src="data/products.js"></script>
+  <script src="data/einstellungen.js"></script>
   <script src="js/main.js"></script>
   <script>
     // Auf der Angebotsseite alle Produkte samt Kategorie-Filter zeigen

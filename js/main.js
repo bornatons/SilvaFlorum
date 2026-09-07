@@ -25,7 +25,91 @@ document.addEventListener("DOMContentLoaded", function () {
   if (jahr) {
     jahr.textContent = new Date().getFullYear();
   }
+
+  fuelleKontaktangaben();
 });
+
+/* ---------- Kontaktangaben aus data/einstellungen.js einsetzen ---------- */
+
+// Beschriftungen für die gelben [TODO]-Markierungen, solange ein Feld leer ist
+var FELD_BESCHRIFTUNG = {
+  name: "Vorname und Nachname",
+  strasse: "Strasse und Hausnummer",
+  plz_ort: "PLZ und Ort",
+  adresse: "Adresse des Ateliers",
+  email: "E-Mail-Adresse",
+  telefon: "Telefonnummer",
+  uid: "UID-Nummer"
+};
+
+/**
+ * Liest einen Wert aus EINSTELLUNGEN. «adresse» ist ein Sammelfeld
+ * aus Strasse und PLZ/Ort.
+ */
+function holeEinstellung(feld) {
+  if (typeof EINSTELLUNGEN === "undefined" || !EINSTELLUNGEN) {
+    return "";
+  }
+  if (feld === "adresse") {
+    var strasse = String(EINSTELLUNGEN.strasse || "").trim();
+    var plzOrt = String(EINSTELLUNGEN.plz_ort || "").trim();
+    return strasse && plzOrt ? strasse + ", " + plzOrt : "";
+  }
+  return String(EINSTELLUNGEN[feld] || "").trim();
+}
+
+/**
+ * Füllt alle Elemente mit data-feld="..." mit den Werten aus den
+ * Einstellungen. Leere Felder werden gelb als [TODO] markiert.
+ * Elemente mit data-nur-wenn="..." werden ausgeblendet, wenn das
+ * genannte Feld leer ist.
+ */
+function fuelleKontaktangaben() {
+  if (typeof EINSTELLUNGEN === "undefined") {
+    console.warn(
+      "data/einstellungen.js fehlt oder enthält einen Tippfehler (z.B. fehlendes " +
+        "Komma oder Anführungszeichen). Darum werden [TODO]-Markierungen angezeigt."
+    );
+  }
+
+  document.querySelectorAll("[data-feld]").forEach(function (element) {
+    var feld = element.dataset.feld;
+    var wert = holeEinstellung(feld);
+    var istLink = element.tagName === "A";
+    var beschriftung = FELD_BESCHRIFTUNG[feld] || feld;
+
+    // Beim Sammelfeld «adresse» genau sagen, welcher Teil noch fehlt
+    if (feld === "adresse" && !wert) {
+      if (holeEinstellung("strasse")) {
+        beschriftung = "PLZ und Ort";
+      } else if (holeEinstellung("plz_ort")) {
+        beschriftung = "Strasse und Hausnummer";
+      }
+    }
+
+    if (wert) {
+      element.textContent = wert;
+      element.classList.remove("todo");
+      if (istLink && feld === "email") {
+        element.href = "mailto:" + wert;
+      } else if (istLink && feld === "telefon") {
+        // Für den Anruf-Link nur Ziffern und das Plus behalten;
+        // ein «(0)» wie in «+41 (0)79 …» wird dabei entfernt
+        element.href = "tel:" + wert.replace(/\(0\)/g, "").replace(/[^+\d]/g, "");
+      }
+    } else {
+      element.textContent = "[TODO: " + beschriftung + "]";
+      element.classList.add("todo");
+      if (istLink) {
+        element.removeAttribute("href");
+      }
+    }
+  });
+
+  document.querySelectorAll("[data-nur-wenn]").forEach(function (element) {
+    element.hidden = !holeEinstellung(element.dataset.nurWenn);
+  });
+}
 
 /* ---------- Produktkarten ---------- */
 

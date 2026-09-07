@@ -640,7 +640,8 @@ legend {
   font-size: 1.3rem;
 }
 
-.todo {
+.todo,
+.fuss a.todo {
   background-color: #fdf3d7;
   color: #6b5416;
   border-radius: 4px;
